@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class TriggerButton : MonoBehaviour
 {
-    public InputActionReference actingL, actingR;
+    /*public InputActionReference actingL, actingR;
     public Animator animator;
     // Start is called before the first frame update
     private void OnEnable()
@@ -14,6 +14,11 @@ public class TriggerButton : MonoBehaviour
         actingR.action.performed += Switching;
     }
     void Switching(InputAction.CallbackContext context)
+    {
+        animator.SetTrigger("TriggerButton");
+    }*/
+    public Animator animator;
+    public void Switching()
     {
         animator.SetTrigger("TriggerButton");
     }
