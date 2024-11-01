@@ -7,13 +7,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MurMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: 75bd1c15afa472a47aba0379d8bed69d, type: 3}
+  m_Name: MurMaisLumiere
+  m_Shader: {fileID: -6465566751694194690, guid: cbebce6af16c6204483380c4e539cf4e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -41,12 +41,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Opacity: 0.32
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _main_Color: {r: 1, g: 1, b: 1, a: 0}
+    - _mainColor: {r: 0.6019639, g: 0.85984576, b: 0.9716981, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &5531696569425914607
+--- !u!114 &2130526687249837098
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

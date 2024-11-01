@@ -4,7 +4,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class PlayerController : MonoBehaviour
 {
-    public InputActionReference gachette; 
+    public InputActionReference gachette;
     public LayerMask rayCastMask;
     public float MaxDist = 1000;
 
