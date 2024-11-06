@@ -3,13 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
-using UnityEngine.UI; // Ajouté pour utiliser l'Image
+using UnityEngine.UI;
+using UnityEngine.Events;
+
+[System.Serializable]
+public class DialogLine
+{
+    public string line = "";
+    public UnityEvent lineEvent;
+}
 
 [System.Serializable]
 public class DialogueList
 {
-    [TextArea(2, 5)]
-    public List<string> dialogues = new List<string>();
+  //  [TextArea(2, 5)]
+    public List<DialogLine> dialogues = new List<DialogLine>();
 }
 
 public class Narration : MonoBehaviour
@@ -17,10 +25,9 @@ public class Narration : MonoBehaviour
     public TextMeshProUGUI textComponent;
     public InputActionReference submitAction;
     public float textSpeed = 0.05f;
-    public string language = "Fr";
+    public string language = "Fr"; // enum
 
-    // Nouvelle référence à l'image d'indicateur en bas à droite
-    public Image continueIcon; // Assignez l'image dans l'inspecteur Unity
+    public Image continueIcon;
 
     // Dictionnaire pour stocker les dialogues nommés
     public Dictionary<string, NamedDialogue> dialogueSets = new Dictionary<string, NamedDialogue>();
@@ -80,7 +87,7 @@ public class Narration : MonoBehaviour
 
             if (currentDialogueList.dialogues.Count > 0)
             {
-                StartCoroutine(DisplayText(currentDialogueList.dialogues[textIndex]));
+                StartCoroutine(DisplayText(currentDialogueList.dialogues[textIndex].line));
             }
             else
             {
@@ -98,7 +105,9 @@ public class Narration : MonoBehaviour
         if (currentDialogueList != null && textIndex < currentDialogueList.dialogues.Count - 1)
         {
             textIndex++;
-            StartCoroutine(DisplayText(currentDialogueList.dialogues[textIndex]));
+            currentDialogueList.dialogues[textIndex].lineEvent.Invoke();
+            StartCoroutine(DisplayText(currentDialogueList.dialogues[textIndex].line));
+            
         }
     }
 
@@ -126,6 +135,5 @@ public class Narration : MonoBehaviour
 
     void GetNameList()
     {
-        
     }
 }
