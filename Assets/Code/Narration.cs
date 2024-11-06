@@ -1,73 +1,105 @@
 using System.Collections;
-using System.Collections.Generic; // Nécessaire pour utiliser List
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
+using UnityEngine.UI; // Ajouté pour utiliser l'Image
 
-[System.Serializable] // Permet d'afficher la classe dans l'inspecteur
+[System.Serializable]
 public class DialogueList
 {
-    [TextArea(2, 5)] // Permet de visualiser les strings sous forme de zone de texte
-    public List<string> dialogues = new List<string>(); // Liste de dialogues
+    [TextArea(2, 5)]
+    public List<string> dialogues = new List<string>();
 }
 
 public class Narration : MonoBehaviour
 {
-    public TextMeshProUGUI textComponent; // Assignez votre TextMeshPro ici dans l'inspecteur
-    public InputActionReference submitAction; // Référence à votre action d'entrée
-    public float textSpeed = 0.05f; // Temps entre chaque caractère
+    public TextMeshProUGUI textComponent;
+    public InputActionReference submitAction;
+    public float textSpeed = 0.05f;
+    public string language = "Fr";
 
-    // Liste de listes de chaînes pour gérer plusieurs ensembles de dialogues
-    public List<DialogueList> dialogueSets = new List<DialogueList>
-    {
-        new DialogueList { dialogues = new List<string> { "Bienvenue dans l'application.", "Ceci est un exemple de texte.", "Vous pouvez passer au texte suivant en appuyant sur 'A'." } },
-        new DialogueList { dialogues = new List<string> { "Texte du deuxième dialogue.", "Ceci est une nouvelle ligne.", "Appuyez sur 'A' pour continuer." } },
-        new DialogueList { dialogues = new List<string> { "Texte du troisième dialogue.", "Vous avez terminé les dialogues." } }
-    };
+    // Nouvelle référence à l'image d'indicateur en bas à droite
+    public Image continueIcon; // Assignez l'image dans l'inspecteur Unity
 
-    public int currentDialogueIndex = 0; // Index de la liste de dialogues actuelle
-    private int textIndex = 0; // Index du texte dans la liste actuelle
+    // Dictionnaire pour stocker les dialogues nommés
+    public Dictionary<string, NamedDialogue> dialogueSets = new Dictionary<string, NamedDialogue>();
+
+    [SerializeField] private List<NamedDialogue> namedDialogues = new List<NamedDialogue>();
+
+    private DialogueList currentDialogueList;
+    private int textIndex = 0;
     private bool isTextDisplaying = false;
+
+    [System.Serializable]
+    public class NamedDialogue
+    {
+        public string name;
+        public DialogueList dialoguesFr;
+        public DialogueList dialoguesEn;
+    }
+
+    void Awake()
+    {
+        // Ajouter chaque dialogue nommé au dictionnaire
+        foreach (var namedDialogue in namedDialogues)
+        {
+            if (!dialogueSets.ContainsKey(namedDialogue.name))
+            {
+                dialogueSets.Add(namedDialogue.name, namedDialogue);
+            }
+        }
+    }
 
     void Start()
     {
-        // Démarrer avec le premier texte
-        textComponent.text = "";
-        StartCoroutine(DisplayText(dialogueSets[currentDialogueIndex].dialogues[textIndex]));
-
-        // Assurez-vous d'activer l'action
+        // Activer l'action et définir le dialogue par défaut sur "Start"
         submitAction.action.Enable();
+        ChangeDialogueSetByName("Start");
+
+        // Masquer l'icône de suite au démarrage
+        if (continueIcon != null) continueIcon.enabled = false;
     }
 
     void Update()
     {
-        // Vérifier si le bouton "A" est pressé
-        if (submitAction.action.triggered && !isTextDisplaying)
+        if (submitAction.action.triggered && !isTextDisplaying && currentDialogueList != null)
         {
+            // Masquer l'icône de suite lors de la transition vers le texte suivant
+            if (continueIcon != null) continueIcon.enabled = false;
             NextText();
+        }
+    }
+
+    public void ChangeDialogueSetByName(string dialogueName)
+    {
+        if (dialogueSets.TryGetValue(dialogueName, out var namedDialogue))
+        {
+            currentDialogueList = language == "Fr" ? namedDialogue.dialoguesFr : namedDialogue.dialoguesEn;
+            textIndex = 0;
+
+            if (currentDialogueList.dialogues.Count > 0)
+            {
+                StartCoroutine(DisplayText(currentDialogueList.dialogues[textIndex]));
+            }
+            else
+            {
+                Debug.LogWarning($"Dialogue set '{dialogueName}' is empty for language '{language}'.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"Dialogue set '{dialogueName}' not found.");
         }
     }
 
     void NextText()
     {
-        // Vérifier si on est dans la liste de dialogue actuelle
-        if (textIndex < dialogueSets[currentDialogueIndex].dialogues.Count - 1) // Si il y a encore des textes à afficher
+        if (currentDialogueList != null && textIndex < currentDialogueList.dialogues.Count - 1)
         {
             textIndex++;
-            StartCoroutine(DisplayText(dialogueSets[currentDialogueIndex].dialogues[textIndex]));
+            StartCoroutine(DisplayText(currentDialogueList.dialogues[textIndex]));
         }
-        else
-        {
-            // Ne rien faire si tous les textes de la liste actuelle ont été affichés
-        }
-    }
-
-    // Méthode pour mettre à jour le dialogue lorsque le currentDialogueIndex change
-    public void ChangeDialogueSet()
-    {
-            currentDialogueIndex++;
-            textIndex = 0; // Réinitialiser l'index de texte
-            StartCoroutine(DisplayText(dialogueSets[currentDialogueIndex].dialogues[textIndex]));
     }
 
     IEnumerator DisplayText(string text)
@@ -75,18 +107,25 @@ public class Narration : MonoBehaviour
         isTextDisplaying = true;
         textComponent.text = "";
 
+        // Affiche le texte caractère par caractère
         foreach (char c in text)
         {
             textComponent.text += c;
             yield return new WaitForSeconds(textSpeed);
         }
 
+        // Le texte est entièrement affiché, on affiche l'icône de suite
+        if (continueIcon != null) continueIcon.enabled = true;
         isTextDisplaying = false;
     }
 
     private void OnDisable()
     {
-        // Désactivez l'action lors de la désactivation du script
         submitAction.action.Disable();
+    }
+
+    void GetNameList()
+    {
+        
     }
 }
