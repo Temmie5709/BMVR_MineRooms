@@ -2073,7 +2073,7 @@
                 {
                     "name": "",
                     "id": "54eb7da2-546a-4d75-bfcc-ae38be303a59",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<XRController>{RightHand}/{PrimaryButton}",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
