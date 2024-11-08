@@ -1123,6 +1123,8 @@ MonoBehaviour:
   textSpeed: 0.03
   language: Fr
   continueIcon: {fileID: 1061011250}
+  typeSound: {fileID: 8300000, guid: 3c4eb8f6059f3a54fbe3f611098f3dae, type: 3}
+  typeSoundVolume: 0.5
   namedDialogues:
   - name: Start
     dialoguesFr:
@@ -2517,7 +2519,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 572ef18bfc46ed040ae98fc3ae3cf88f, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.57
+  m_Volume: 0.715
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -4263,5 +4265,5 @@ SceneRoots:
   - {fileID: 1903676390}
   - {fileID: 1644507644}
   - {fileID: 388474544}
-  - {fileID: 1999019981}
   - {fileID: 1068054604}
+  - {fileID: 1999019981}

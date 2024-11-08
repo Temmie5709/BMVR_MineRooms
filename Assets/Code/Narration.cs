@@ -16,7 +16,6 @@ public class DialogLine
 [System.Serializable]
 public class DialogueList
 {
-  //  [TextArea(2, 5)]
     public List<DialogLine> dialogues = new List<DialogLine>();
 }
 
@@ -25,13 +24,16 @@ public class Narration : MonoBehaviour
     public TextMeshProUGUI textComponent;
     public InputActionReference submitAction;
     public float textSpeed = 0.05f;
-    public string language = "Fr"; // enum
+    public string language = "Fr";
 
     public Image continueIcon;
 
-    // Dictionnaire pour stocker les dialogues nommés
-    public Dictionary<string, NamedDialogue> dialogueSets = new Dictionary<string, NamedDialogue>();
+    public AudioClip typeSound; // Son de typewriter
+    public float typeSoundVolume = 0.5f; // Volume du son de typewriter
 
+    private AudioSource audioSource;
+
+    public Dictionary<string, NamedDialogue> dialogueSets = new Dictionary<string, NamedDialogue>();
     [SerializeField] private List<NamedDialogue> namedDialogues = new List<NamedDialogue>();
 
     private DialogueList currentDialogueList;
@@ -48,7 +50,6 @@ public class Narration : MonoBehaviour
 
     void Awake()
     {
-        // Ajouter chaque dialogue nommé au dictionnaire
         foreach (var namedDialogue in namedDialogues)
         {
             if (!dialogueSets.ContainsKey(namedDialogue.name))
@@ -56,15 +57,20 @@ public class Narration : MonoBehaviour
                 dialogueSets.Add(namedDialogue.name, namedDialogue);
             }
         }
+
+        // Configure l'AudioSource pour les sons de typewriter
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = typeSound;
+        audioSource.volume = typeSoundVolume;
+        audioSource.playOnAwake = false;
+        audioSource.loop = true; // Permet de boucler le son
     }
 
     void Start()
     {
-        // Activer l'action et définir le dialogue par défaut sur "Start"
         submitAction.action.Enable();
         ChangeDialogueSetByName("Start");
 
-        // Masquer l'icône de suite au démarrage
         if (continueIcon != null) continueIcon.enabled = false;
     }
 
@@ -72,7 +78,6 @@ public class Narration : MonoBehaviour
     {
         if (submitAction.action.triggered && !isTextDisplaying && currentDialogueList != null)
         {
-            // Masquer l'icône de suite lors de la transition vers le texte suivant
             if (continueIcon != null) continueIcon.enabled = false;
             NextText();
         }
@@ -107,7 +112,6 @@ public class Narration : MonoBehaviour
             textIndex++;
             currentDialogueList.dialogues[textIndex].lineEvent.Invoke();
             StartCoroutine(DisplayText(currentDialogueList.dialogues[textIndex].line));
-            
         }
     }
 
@@ -116,11 +120,25 @@ public class Narration : MonoBehaviour
         isTextDisplaying = true;
         textComponent.text = "";
 
+        // Démarrer le son en continu à un point aléatoire
+        if (typeSound != null && audioSource != null)
+        {
+            float randomStartTime = Random.Range(0f, typeSound.length); // Point de départ aléatoire
+            audioSource.time = randomStartTime;
+            audioSource.Play();
+        }
+
         // Affiche le texte caractère par caractère
         foreach (char c in text)
         {
             textComponent.text += c;
             yield return new WaitForSeconds(textSpeed);
+        }
+
+        // Arrêter le son une fois le texte complètement affiché
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Stop();
         }
 
         // Le texte est entièrement affiché, on affiche l'icône de suite
