@@ -279,8 +279,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ba4e94a2bfbc8b469002957799f24e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDistance: 0.02
-  duration: 1
+  moveDistance: 0.1
+  duration: 1.5
 --- !u!1001 &299993872
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -859,7 +859,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 488267234}
   serializedVersion: 4
-  m_Mass: 10
+  m_Mass: 5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -907,19 +907,7 @@ MonoBehaviour:
   m_AllowGazeAssistance: 0
   m_FirstHoverEntered:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 488267245}
-        m_TargetAssemblyTypeName: GrabTrigger, Assembly-CSharp
-        m_MethodName: Grab
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_LastHoverExited:
     m_PersistentCalls:
       m_Calls: []
@@ -937,7 +925,19 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 488267245}
+        m_TargetAssemblyTypeName: GrabTrigger, Assembly-CSharp
+        m_MethodName: Grab
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls: []
@@ -1052,26 +1052,44 @@ MonoBehaviour:
             m_Calls: []
     dialoguesEn:
       dialogues:
-      - line: "Welcome! You must be glad to have finally arrived. We\u2019ve been
-          waiting for you for quite a while, actually."
+      - line: Welcome back
         lineEvent:
           m_PersistentCalls:
             m_Calls: []
-      - line: "Let\u2019s start by turning on the light. Can you handle that?"
+      - line: Alright. Can you grab that cube? I don't really like to getting wet.
         lineEvent:
           m_PersistentCalls:
             m_Calls: []
   - name: Grab
     dialoguesFr:
       dialogues:
-      - line: "Elle est toujours etainte... J'imagine que je vais m'en occuper moi-m\xEAme
-          du coup..."
+      - line: Je ne pensais plus au cube dans l'eau... pas au cube d'eau.
+        lineEvent:
+          m_PersistentCalls:
+            m_Calls: []
+      - line: " Enfin bref, l\xE2che \xE7a et prends la porte. Tu as d'autres choses
+          \xE0 aller voir."
+        lineEvent:
+          m_PersistentCalls:
+            m_Calls: []
+      - line: Cette eau est si solide... Il doit faire vraiment froid dans cette
+          salle... j'imagine...
         lineEvent:
           m_PersistentCalls:
             m_Calls: []
     dialoguesEn:
       dialogues:
-      - line: 
+      - line: I wasn't thinking about the cube in the water... not a cube of water
+        lineEvent:
+          m_PersistentCalls:
+            m_Calls: []
+      - line: Anyway, let it go and go out through the door. You have other things
+          to go see
+        lineEvent:
+          m_PersistentCalls:
+            m_Calls: []
+      - line: This water is so solid... It must be really cold in this room... I
+          imagine...
         lineEvent:
           m_PersistentCalls:
             m_Calls: []
@@ -3529,7 +3547,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2243020122246761220, guid: 77e7c27b2c5525e4aa8cc9f99d654486, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 40.795
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2243020122246761220, guid: 77e7c27b2c5525e4aa8cc9f99d654486, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -3553,7 +3571,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2243020122508800755, guid: 77e7c27b2c5525e4aa8cc9f99d654486, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 40
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2243020122508800755, guid: 77e7c27b2c5525e4aa8cc9f99d654486, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -3581,7 +3599,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2243020122894124685, guid: 77e7c27b2c5525e4aa8cc9f99d654486, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 40
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2243020122894124685, guid: 77e7c27b2c5525e4aa8cc9f99d654486, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -3633,7 +3651,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7434851320941268098, guid: 77e7c27b2c5525e4aa8cc9f99d654486, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 40
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7434851320941268098, guid: 77e7c27b2c5525e4aa8cc9f99d654486, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -3673,7 +3691,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7434851321834335947, guid: 77e7c27b2c5525e4aa8cc9f99d654486, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 40
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7434851321834335947, guid: 77e7c27b2c5525e4aa8cc9f99d654486, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -3705,7 +3723,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7434851322346956810, guid: 77e7c27b2c5525e4aa8cc9f99d654486, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 40.795
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7434851322346956810, guid: 77e7c27b2c5525e4aa8cc9f99d654486, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -3733,7 +3751,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7434851322872225859, guid: 77e7c27b2c5525e4aa8cc9f99d654486, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 40
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7434851322872225859, guid: 77e7c27b2c5525e4aa8cc9f99d654486, type: 3}
       propertyPath: m_AnchoredPosition.y

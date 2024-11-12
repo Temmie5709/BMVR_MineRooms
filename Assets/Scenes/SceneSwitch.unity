@@ -1191,10 +1191,43 @@ MonoBehaviour:
               m_CallState: 2
     dialoguesEn:
       dialogues:
-      - line: 
+      - line: She is still off... I guess I'll take care of it myself...
         lineEvent:
           m_PersistentCalls:
             m_Calls: []
+      - line: What did you do to this chair ?
+        lineEvent:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 2055724923}
+              m_TargetAssemblyTypeName: SwitchReact, Assembly-CSharp
+              m_MethodName: EnableLight
+              m_Mode: 1
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
+      - line: "Never mind, go out through the door, we\u2019re waiting for you in
+          the next room."
+        lineEvent:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 1049726914}
+              m_TargetAssemblyTypeName: ShowObject, Assembly-CSharp
+              m_MethodName: Show
+              m_Mode: 1
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
 --- !u!222 &543248655
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3973,7 +4006,7 @@ Transform:
   m_GameObject: {fileID: 2055724922}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.408, y: -0.7327673, z: -3.7411356}
+  m_LocalPosition: {x: -3.408001, y: -0.7327673, z: -3.7411356}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
