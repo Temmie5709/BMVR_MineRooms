@@ -7,6 +7,7 @@ public class GrabTrigger : MonoBehaviour
     public void Grab()
     {
         change.ChangeDialogueSetByName("Grab");
+        Debug.Log("Test");
     }
 
     private Vector3 initialScale;
