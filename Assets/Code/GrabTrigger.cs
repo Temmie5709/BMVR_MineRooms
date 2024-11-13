@@ -4,12 +4,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class GrabTrigger : MonoBehaviour
 {
     public Narration change;
-    public void Grab()
-    {
-        change.ChangeDialogueSetByName("Grab");
-        Debug.Log("Test");
-    }
-
+    bool OnePass = true;
     private Vector3 initialScale;
 
     private void Awake()
@@ -17,7 +12,7 @@ public class GrabTrigger : MonoBehaviour
         initialScale = transform.localScale;
     }
 
-    private void OnEnable()
+    public void OnEnable()
     {
         var interactable = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
         interactable.selectEntered.AddListener(OnGrab);
@@ -34,6 +29,11 @@ public class GrabTrigger : MonoBehaviour
     private void OnGrab(SelectEnterEventArgs args)
     {
         transform.localScale = initialScale;
+        if (OnePass == true)
+        {
+            change.ChangeDialogueSetByName("Grab");
+        }
+        OnePass = false;
     }
 
     private void OnRelease(SelectExitEventArgs args)

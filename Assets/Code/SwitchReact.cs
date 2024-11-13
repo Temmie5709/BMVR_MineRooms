@@ -18,7 +18,6 @@ public class SwitchReact : MonoBehaviour
         if(One_Pass == true)
         {
             Swite.ChangeDialogueSetByName("Switch");
-
         }
         One_Pass = false;
     }

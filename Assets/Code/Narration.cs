@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using System.Security.Cryptography.X509Certificates;
 
 [System.Serializable]
 public class DialogLine
@@ -34,9 +35,9 @@ public class Narration : MonoBehaviour
     private AudioSource audioSource;
 
     public Dictionary<string, NamedDialogue> dialogueSets = new Dictionary<string, NamedDialogue>();
-    [SerializeField] private List<NamedDialogue> namedDialogues = new List<NamedDialogue>();
+    public List<NamedDialogue> namedDialogues = new List<NamedDialogue>();
 
-    private DialogueList currentDialogueList;
+    public DialogueList currentDialogueList;
     private int textIndex = 0;
     private bool isTextDisplaying = false;
 
@@ -58,12 +59,18 @@ public class Narration : MonoBehaviour
             }
         }
 
+        // Affiche le contenu de dialogueSets pour déboguer
+        foreach (var key in dialogueSets.Keys)
+        {
+            Debug.Log($"Dialogue key in dictionary: {key}");
+        }
+
         // Configure l'AudioSource pour les sons de typewriter
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.clip = typeSound;
         audioSource.volume = typeSoundVolume;
         audioSource.playOnAwake = false;
-        audioSource.loop = true; // Permet de boucler le son
+        audioSource.loop = true;
     }
 
     void Start()
