@@ -1,6 +1,8 @@
 using UnityEngine.Audio;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 //Credit to Brackeys youtube tutorial on Audio managers, as the majority of this code and learning how to use it was made by him.
 [System.Serializable]
@@ -26,6 +28,10 @@ public class Sound
 
 public class AudioManager : MonoBehaviour
 {
+
+    public Slider volumeSlider; // Assignez le slider ici via l'inspecteur
+
+
     public Sound[] sounds;
 
     public static AudioManager instance;
@@ -51,7 +57,23 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void Play(string name)
+    void Start()
+    {
+        // Définir la valeur du slider avec le volume actuel
+        volumeSlider.value = AudioListener.volume;
+
+        // Abonner la méthode de mise à jour du volume
+        volumeSlider.onValueChanged.AddListener(ChangeVolume);
+    }
+
+    // Méthode pour modifier le volume
+    public void ChangeVolume(float volume)
+    {
+        AudioListener.volume = volume; // Ajuste le volume global
+    }
+
+
+public void Play(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
