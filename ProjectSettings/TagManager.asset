@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Anchor
+  - HitBox
   layers:
   - Default
   - TransparentFX

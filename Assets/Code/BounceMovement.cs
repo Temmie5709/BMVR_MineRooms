@@ -4,8 +4,8 @@ using DG.Tweening;
 public class BounceMovement : MonoBehaviour
 {
     // Paramètres pour le mouvement
-    public float moveDistance = 2f; // Distance de déplacement vers le haut et vers le bas
-    public float duration = 1f;     // Durée d'une boucle (haut-bas)
+    public float moveDistance = 0.1f; // Distance de déplacement vers le haut et vers le bas
+    public float duration = 1.5f;     // Durée d'une boucle (haut-bas)
 
     private void Start()
     {
