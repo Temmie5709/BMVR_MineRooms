@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
     {
         if (Instance == null)
         {
-            Debug.Log("Freuteu");
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }

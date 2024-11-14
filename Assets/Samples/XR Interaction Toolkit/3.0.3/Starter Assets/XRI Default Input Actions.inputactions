@@ -2082,6 +2082,17 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "c67cf656-0645-4a4a-b5cf-fc25fa40a765",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "Gamepad",
                     "id": "4c9a5170-d325-45ee-8ef9-fc12d1f5a97e",
                     "path": "2DVector",
