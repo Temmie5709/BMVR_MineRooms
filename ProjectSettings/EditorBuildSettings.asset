@@ -14,6 +14,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SceneWater.unity
     guid: 6bccc174f17b25047b60b2ba62b7ed36
+  - enabled: 1
+    path: Assets/Scenes/SceneStencil.unity
+    guid: b318f0a0498f5a74d9ff7efdfac01067
+  - enabled: 1
+    path: Assets/Scenes/SceneChoice.unity
+    guid: b1235e96b2df620438cd071a1b4863d8
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260, type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: dc5a169419fa04987b057f65238cf3ba, type: 2}
