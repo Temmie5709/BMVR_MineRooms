@@ -94,11 +94,14 @@ public class Narration : MonoBehaviour
     {
         if (dialogueSets.TryGetValue(dialogueName, out var namedDialogue))
         {
+            // Sélectionner le dialogue en fonction de la langue
             currentDialogueList = language == "Fr" ? namedDialogue.dialoguesFr : namedDialogue.dialoguesEn;
             textIndex = 0;
 
             if (currentDialogueList.dialogues.Count > 0)
             {
+                // Invoquer l'événement de la première ligne avant de commencer l'affichage du texte
+                currentDialogueList.dialogues[textIndex].lineEvent.Invoke();
                 StartCoroutine(DisplayText(currentDialogueList.dialogues[textIndex].line));
             }
             else
@@ -111,6 +114,7 @@ public class Narration : MonoBehaviour
             Debug.LogWarning($"Dialogue set '{dialogueName}' not found.");
         }
     }
+
 
     void NextText()
     {
