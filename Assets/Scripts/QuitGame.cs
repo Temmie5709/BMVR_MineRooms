@@ -13,6 +13,5 @@ public class QuitGame : MonoBehaviour
             Application.Quit();
 #endif
 
-        Debug.Log("Le jeu a été quitté.");
     }
 }

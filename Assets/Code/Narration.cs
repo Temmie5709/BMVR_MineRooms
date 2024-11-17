@@ -25,7 +25,9 @@ public class Narration : MonoBehaviour
     public TextMeshProUGUI textComponent;
     public InputActionReference submitAction;
     public float textSpeed = 0.05f;
-    public string language = "Fr";
+    public string language = "En";
+    private Coroutine activeCoroutine;
+
 
     public Image continueIcon;
 
@@ -75,9 +77,14 @@ public class Narration : MonoBehaviour
 
     void Start()
     {
+        if (GameManager.Instance.GetLangue() != null)
+        {
+            language = GameManager.Instance.GetLangue();
+        }
+        
         submitAction.action.Enable();
         ChangeDialogueSetByName("Start");
-
+        
         if (continueIcon != null) continueIcon.enabled = false;
     }
 
@@ -92,17 +99,21 @@ public class Narration : MonoBehaviour
 
     public void ChangeDialogueSetByName(string dialogueName)
     {
+        if (activeCoroutine != null)
+        {
+            StopCoroutine(activeCoroutine);
+            activeCoroutine = null;
+        }
+
         if (dialogueSets.TryGetValue(dialogueName, out var namedDialogue))
         {
-            // Sélectionner le dialogue en fonction de la langue
             currentDialogueList = language == "Fr" ? namedDialogue.dialoguesFr : namedDialogue.dialoguesEn;
             textIndex = 0;
 
             if (currentDialogueList.dialogues.Count > 0)
             {
-                // Invoquer l'événement de la première ligne avant de commencer l'affichage du texte
                 currentDialogueList.dialogues[textIndex].lineEvent.Invoke();
-                StartCoroutine(DisplayText(currentDialogueList.dialogues[textIndex].line));
+                activeCoroutine = StartCoroutine(DisplayText(currentDialogueList.dialogues[textIndex].line));
             }
             else
             {
@@ -116,15 +127,23 @@ public class Narration : MonoBehaviour
     }
 
 
+
     void NextText()
     {
         if (currentDialogueList != null && textIndex < currentDialogueList.dialogues.Count - 1)
         {
+            if (activeCoroutine != null)
+            {
+                StopCoroutine(activeCoroutine);
+                activeCoroutine = null;
+            }
+
             textIndex++;
             currentDialogueList.dialogues[textIndex].lineEvent.Invoke();
-            StartCoroutine(DisplayText(currentDialogueList.dialogues[textIndex].line));
+            activeCoroutine = StartCoroutine(DisplayText(currentDialogueList.dialogues[textIndex].line));
         }
     }
+
 
     IEnumerator DisplayText(string text)
     {

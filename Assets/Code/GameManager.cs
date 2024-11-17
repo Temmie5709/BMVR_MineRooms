@@ -4,6 +4,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance = null;
     public AudioSource soundStream;
+    private string Language = "En";
 
 
     void Awake()
@@ -25,5 +26,13 @@ public class GameManager : MonoBehaviour
         soundStream.Play();
     }
 
+    public string GetLangue()
+    {
+        return Language;
+    }
 
+    public void SetLangue(string Lang)
+    {
+        Language = Lang;    
+    }
 }
